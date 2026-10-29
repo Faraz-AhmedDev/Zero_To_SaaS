@@ -1,13 +1,10 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { CheckCircle2, HelpCircle, ArrowRight, ShieldCheck, Zap } from "lucide-react"
+import { ShieldCheck } from "lucide-react"
 
-import { siteConfig } from "@/config/site"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { PricingCards } from "@/components/shared/pricing-cards"
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = React.useState(false)
@@ -57,79 +54,8 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-          {siteConfig.pricingPlans.map((plan) => {
-            const price = isYearly ? plan.price.yearly : plan.price.monthly
-
-            return (
-              <Card
-                key={plan.id}
-                className={`flex flex-col justify-between relative border transition-all ${
-                  plan.popular
-                    ? "border-primary shadow-xl ring-2 ring-primary/20 bg-card"
-                    : "border-border/80 bg-card hover:border-border"
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-0.5 shadow-sm">
-                      Recommended
-                    </Badge>
-                  </div>
-                )}
-
-                <CardHeader className="pt-6">
-                  <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
-                  <CardDescription className="text-sm min-h-[40px] mt-1 text-muted-foreground">
-                    {plan.description}
-                  </CardDescription>
-
-                  <div className="mt-6 flex items-baseline gap-1">
-                    <span className="text-4xl font-extrabold text-foreground">
-                      ${price}
-                    </span>
-                    <span className="text-sm text-muted-foreground font-medium">
-                      /month
-                    </span>
-                    {isYearly && plan.price.monthly > 0 && (
-                      <span className="text-xs text-muted-foreground ml-1">
-                        (billed annually)
-                      </span>
-                    )}
-                  </div>
-                </CardHeader>
-
-                <CardContent className="space-y-4 pt-4">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Plan Features:
-                  </div>
-                  <ul className="space-y-2.5 text-sm">
-                    {plan.features.map((feature, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2.5 text-muted-foreground">
-                        <CheckCircle2 className="size-4 shrink-0 text-emerald-500 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-
-                <CardFooter className="pt-6">
-                  <Link href="/register" className="w-full">
-                    <Button
-                      variant={plan.ctaVariant || "default"}
-                      className={`w-full font-semibold ${
-                        plan.popular ? "shadow-md" : ""
-                      }`}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            )
-          })}
-        </div>
+        {/* Pricing Cards Component */}
+        <PricingCards isYearly={isYearly} />
 
         {/* Feature comparison guarantee note */}
         <div className="mt-16 text-center max-w-2xl mx-auto rounded-2xl border border-border/80 bg-muted/20 p-6 flex items-center justify-center gap-4">
