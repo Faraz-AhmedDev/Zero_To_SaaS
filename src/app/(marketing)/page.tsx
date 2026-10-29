@@ -43,7 +43,7 @@ export default function MarketingPage() {
   return (
     <div className="flex flex-col items-center overflow-hidden">
       {/* 1. Hero Section */}
-      <section className="relative w-full pt-20 pb-16 md:pt-28 md:pb-24 lg:pt-32">
+      <section className="relative w-full pt-6 pb-16 md:pt-10 md:pb-20 lg:pt-12">
         {/* Subtle background ambient glow */}
         <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
           <div
@@ -57,12 +57,12 @@ export default function MarketingPage() {
 
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 px-3.5 py-1 text-xs font-medium text-foreground backdrop-blur-sm shadow-xs mb-8 transition-transform hover:scale-105">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 px-3.5 py-1 text-xs font-medium text-foreground backdrop-blur-sm shadow-xs mb-6 transition-transform hover:scale-105">
             <span className="flex size-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>Open-Source SaaS Starter</span>
             <span className="text-muted-foreground">•</span>
             <span className="text-primary flex items-center gap-1 font-semibold">
-              Next.js 15+ & React 19 Ready
+              Next.js 16 & React 19 Ready
             </span>
           </div>
 
