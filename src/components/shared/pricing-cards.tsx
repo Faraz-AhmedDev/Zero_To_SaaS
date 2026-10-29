@@ -62,7 +62,7 @@ export function PricingCards({ isYearly }: PricingCardsProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch max-w-6xl mx-auto">
       {siteConfig.pricingPlans.map((plan) => {
         const price = isYearly ? plan.price.yearly : plan.price.monthly
         const isLoading = loadingPlan === plan.id
@@ -72,63 +72,71 @@ export function PricingCards({ isYearly }: PricingCardsProps) {
             key={plan.id}
             className={`flex flex-col justify-between relative border transition-all ${
               plan.popular
-                ? "border-primary shadow-xl ring-2 ring-primary/20 bg-card"
+                ? "border-primary shadow-lg ring-1.5 ring-primary/25 bg-card"
                 : "border-border/80 bg-card hover:border-border"
             }`}
           >
             {plan.popular && (
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-0.5 shadow-sm">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <Badge className="bg-primary text-primary-foreground font-semibold px-2.5 py-0.5 text-[11px] shadow-xs">
                   Most Popular
                 </Badge>
               </div>
             )}
 
-            <CardHeader className="pt-6">
-              <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
-              <CardDescription className="text-sm min-h-[40px] mt-1 text-muted-foreground">
+            <CardHeader className="pt-4 pb-2 px-5">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg font-bold text-foreground">
+                  {plan.name}
+                </CardTitle>
+              </div>
+
+              <CardDescription className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
                 {plan.description}
               </CardDescription>
 
-              <div className="mt-6 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold text-foreground">
+              <div className="mt-3 flex items-baseline gap-1">
+                <span className="text-3xl font-extrabold text-foreground tracking-tight">
                   ${price}
                 </span>
-                <span className="text-sm text-muted-foreground font-medium">
+                <span className="text-xs text-muted-foreground font-medium">
                   /month
                 </span>
                 {isYearly && plan.price.monthly > 0 && (
-                  <span className="text-xs text-muted-foreground ml-1">
+                  <span className="text-[10px] text-muted-foreground ml-1">
                     (billed annually)
                   </span>
                 )}
               </div>
             </CardHeader>
 
-            <CardContent className="space-y-4 pt-4">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Includes:
+            <CardContent className="pt-2 pb-3 px-5 flex-1">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                Included Features:
               </div>
-              <ul className="space-y-2.5 text-sm">
+              <ul className="space-y-1.5 text-xs text-muted-foreground">
                 {plan.features.map((feature, fIdx) => (
-                  <li key={fIdx} className="flex items-start gap-2.5 text-muted-foreground">
-                    <CheckCircle2 className="size-4 shrink-0 text-emerald-500 mt-0.5" />
-                    <span>{feature}</span>
+                  <li key={fIdx} className="flex items-start gap-2">
+                    <CheckCircle2 className="size-3.5 shrink-0 text-emerald-500 mt-0.5" />
+                    <span className="leading-tight">{feature}</span>
                   </li>
                 ))}
               </ul>
             </CardContent>
 
-            <CardFooter className="pt-6">
+            <CardFooter className="pt-2 pb-4 px-5">
               <Button
                 variant={plan.ctaVariant || "default"}
-                className={`w-full font-semibold ${plan.popular ? "shadow-md" : ""}`}
+                size="sm"
+                className={`w-full font-semibold text-xs h-9 ${
+                  plan.popular ? "shadow-sm" : ""
+                }`}
                 disabled={isLoading}
                 onClick={() => handleAction(plan)}
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 size-4 animate-spin" />
+                    <Loader2 className="mr-2 size-3.5 animate-spin" />
                     <span>Redirecting...</span>
                   </>
                 ) : (
@@ -142,4 +150,3 @@ export function PricingCards({ isYearly }: PricingCardsProps) {
     </div>
   )
 }
-
