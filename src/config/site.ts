@@ -10,6 +10,10 @@ export interface PricingPlan {
   popular?: boolean
   cta: string
   ctaVariant?: "default" | "outline" | "secondary"
+  variantId?: {
+    monthly: string
+    yearly: string
+  }
 }
 
 export interface NavItem {
@@ -83,6 +87,10 @@ export const siteConfig = {
       popular: true,
       cta: "Start 14-Day Free Trial",
       ctaVariant: "default" as const,
+      variantId: {
+        monthly: process.env.NEXT_PUBLIC_LS_PRO_MONTHLY_VARIANT_ID || "",
+        yearly: process.env.NEXT_PUBLIC_LS_PRO_YEARLY_VARIANT_ID || "",
+      },
     },
     {
       id: "enterprise",
