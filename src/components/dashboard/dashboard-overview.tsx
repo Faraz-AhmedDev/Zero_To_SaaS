@@ -30,13 +30,22 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
 import { toast } from "sonner"
 
 interface DashboardOverviewProps {
   userName?: string | null
+  isPro?: boolean
+  plan?: "FREE" | "PRO"
+  currentPeriodEnd?: Date | null
 }
 
-export function DashboardOverview({ userName }: DashboardOverviewProps) {
+export function DashboardOverview({
+  userName,
+  isPro = false,
+  plan = "FREE",
+  currentPeriodEnd,
+}: DashboardOverviewProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [projectName, setProjectName] = React.useState("")
   const [projectSlug, setProjectSlug] = React.useState("")
@@ -185,16 +194,28 @@ export function DashboardOverview({ userName }: DashboardOverviewProps) {
             <CardTitle className="text-xs font-medium text-muted-foreground">
               Active Plan
             </CardTitle>
-            <div className="flex size-8 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <div className={`flex size-8 items-center justify-center rounded-lg ${isPro ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : "bg-muted text-muted-foreground"}`}>
               <Zap className="size-4" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">Pro Plan</div>
-            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-              <span>Next billing in</span>
-              <span className="font-semibold text-foreground">18 days</span>
-            </p>
+            <div className="text-2xl font-bold tracking-tight">
+              {isPro ? "Pro Plan" : "Free Plan"}
+            </div>
+            {isPro ? (
+              <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                <span>Next billing:</span>
+                <span className="font-semibold text-foreground">
+                  {currentPeriodEnd ? new Date(currentPeriodEnd).toLocaleDateString() : "Active"}
+                </span>
+              </p>
+            ) : (
+              <p className="text-xs text-muted-foreground mt-1">
+                <Link href="/dashboard/billing" className="text-primary hover:underline font-medium">
+                  Upgrade to Pro →
+                </Link>
+              </p>
+            )}
           </CardContent>
         </Card>
 

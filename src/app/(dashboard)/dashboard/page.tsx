@@ -1,10 +1,20 @@
 import { Suspense } from "react"
 import { auth } from "@/lib/auth"
+import { getUserSubscription } from "@/lib/db/queries"
 import { DashboardOverview } from "@/components/dashboard/dashboard-overview"
 
 async function DashboardOverviewWithAuth() {
   const session = await auth()
-  return <DashboardOverview userName={session?.user?.name} />
+  const subscription = await getUserSubscription(session?.user?.id)
+
+  return (
+    <DashboardOverview
+      userName={session?.user?.name}
+      isPro={subscription.isPro}
+      plan={subscription.plan}
+      currentPeriodEnd={subscription.currentPeriodEnd}
+    />
+  )
 }
 
 export default function DashboardPage() {
@@ -14,3 +24,4 @@ export default function DashboardPage() {
     </Suspense>
   )
 }
+
