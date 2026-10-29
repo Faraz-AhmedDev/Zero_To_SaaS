@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm"
 import { db } from "@/lib/db"
 import { users, subscriptions } from "@/lib/db/schema"
 import { signIn, signOut, auth } from "@/lib/auth"
+import { sendWelcomeEmail } from "@/lib/mail"
 import {
   loginSchema,
   registerSchema,
@@ -70,6 +71,11 @@ export async function registerUser(values: RegisterInput): Promise<ActionResult>
       userId: newUser.id,
       plan: "FREE",
       status: "ACTIVE",
+    })
+
+    // Send welcome email (non-blocking)
+    sendWelcomeEmail(normalizedEmail, name).catch((err) => {
+      console.error("[WELCOME_EMAIL_BACKGROUND_ERROR]", err)
     })
 
     return {
