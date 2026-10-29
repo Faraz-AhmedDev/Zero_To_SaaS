@@ -26,19 +26,19 @@ export interface NavItem {
 export const siteConfig = {
   name: "ZeroToSaas",
   description:
-    "The modern, open-source Next.js SaaS boilerplate. Everything you need to build, launch, and scale your SaaS in record time.",
-  url: "https://launchstack.dev",
-  ogImage: "https://launchstack.dev/og.jpg",
+    "The modern, open-source Next.js SaaS boilerplate. Built with Next.js 16 App Router, React 19, TypeScript, Tailwind CSS, Drizzle ORM, NextAuth v5, LemonSqueezy, and Resend.",
+  url: process.env.NEXT_PUBLIC_APP_URL || "https://zerotosaas.dev",
+  ogImage: "/og.jpg",
   links: {
-    twitter: "https://twitter.com/launchstack",
-    github: "https://github.com/launchstack/launchstack",
-    docs: "/docs",
+    twitter: "https://twitter.com/ZeroToSaaS",
+    github: "https://github.com/Faraz-AhmedDev/Zero_To_SaaS",
+    docs: "https://github.com/Faraz-AhmedDev/Zero_To_SaaS#readme",
   },
   mainNav: [
-    { title: "Features", href: "#features" },
+    { title: "Features", href: "/#features" },
     { title: "Pricing", href: "/pricing" },
     { title: "Dashboard", href: "/dashboard" },
-    { title: "Docs", href: "https://github.com/launchstack/launchstack", external: true },
+    { title: "Docs", href: "https://github.com/Faraz-AhmedDev/Zero_To_SaaS#readme", external: true },
   ] as NavItem[],
   dashboardNav: [
     { title: "Overview", href: "/dashboard", icon: "LayoutDashboard" },
@@ -131,9 +131,9 @@ export const siteConfig = {
       tag: "Security",
     },
     {
-      title: "Prisma & PostgreSQL Ready",
+      title: "Drizzle ORM & PostgreSQL",
       description:
-        "Pre-configured relational schema with instant migrations, seeders, and type-safe database queries out of the box.",
+        "Type-safe relational schema with instant migrations, Docker Postgres support, and Drizzle Studio ready out of the box.",
       icon: "Database",
       tag: "Data Layer",
     },
